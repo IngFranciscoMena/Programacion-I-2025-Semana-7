@@ -10,13 +10,15 @@ namespace VehiculosApp.Modelos
     public abstract class Vehiculo
     {
         // Se han agregado propiedades
+        protected int Id;
         protected string Marca;
         protected string Modelo;
         protected int Año;
 
         // Se creo un constructor
-        public Vehiculo(string marca, string modelo, int año)
+        public Vehiculo(int id, string marca, string modelo, int año)
         {
+            Id = id;
             Marca = marca;
             Modelo = modelo;
             Año = año;
@@ -33,7 +35,7 @@ namespace VehiculosApp.Modelos
 
         // Implementar un constructor para pasar los argumentos necesarios
         // para inicializar la clase padre
-        public Automovil(string marca, string modelo, int año, int numeroPuertas) : base(marca, modelo, año)
+        public Automovil(int id, string marca, string modelo, int año, int numeroPuertas) : base(id, marca, modelo, año)
         {
             NumeroPuertas = numeroPuertas;
         }
@@ -41,7 +43,7 @@ namespace VehiculosApp.Modelos
         // Implementar el método abstracto 'MostrarDetalles()' en la sub-clase
         public override string MostrarDetalles()
         {
-            return $"Automovil\nMarca: {base.Marca}\nModelo: {base.Modelo}\nAño: {base.Año}\nN° Puertas: {this.NumeroPuertas}";
+            return $"Automovil\nCodigo: {base.Id}\nMarca: {base.Marca}\nModelo: {base.Modelo}\nAño: {base.Año}\nN° Puertas: {this.NumeroPuertas}";
         }
     }
 
@@ -50,14 +52,14 @@ namespace VehiculosApp.Modelos
     {
         // Implementar un constructor para pasar los argumentos necesarios
         // para inicializar la clase padre
-        public Motocicleta(string marca, string modelo, int año) : base(marca, modelo, año)
+        public Motocicleta(int id, string marca, string modelo, int año) : base(id, marca, modelo, año)
         {
         }
 
         // Implementar el método abstracto 'MostrarDetalles()' en la sub-clase
         public override string MostrarDetalles()
         {
-            return $"Motocicleta\nMarca: {base.Marca}\nModelo: {base.Modelo}\nAño: {base.Año}";
+            return $"Motocicleta\nCodigo: {base.Id}\nMarca: {base.Marca}\nModelo: {base.Modelo}\nAño: {base.Año}";
         }
     }
 }

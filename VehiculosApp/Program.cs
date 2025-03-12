@@ -29,7 +29,7 @@ namespace VehiculosApp
                 Separador();
                 Console.WriteLine("Seleccione una opción: ");
                 Separador();
-                Console.WriteLine("1. Insertar un vehiculo\n2. Mostrar los vehiculos almacenados\n0. Salir");
+                Console.WriteLine("1. Insertar un vehiculo\n2. Mostrar los vehiculos almacenados\n3. Actualizar vehiculos\n0. Salir");
                 Separador();
 
                 int opcion = int.Parse(Console.ReadLine());
@@ -46,6 +46,9 @@ namespace VehiculosApp
                     case 2:
                         MostrarVehiculos();
                         break;
+                    case 3:
+                        ActualizarVehiculos();
+                        break;
                     default:
                         Console.WriteLine("Opción incorrecta vuelve a intentarlo");
                         break;
@@ -55,6 +58,24 @@ namespace VehiculosApp
             } while (activado);
 
             Console.ReadLine();
+        }
+
+        private static void ActualizarVehiculos()
+        {
+            Separador();
+            Console.WriteLine("Digite el \"Codigo\" del vehiculo a actualizar:");
+            MostrarVehiculos();
+
+            int id = int.Parse(Console.ReadLine());
+
+            if (id > 0)
+            {
+                InsertarVehiculo(id, true);
+            }
+            else
+            {
+                Console.WriteLine("El id ingresado es incorrecto");
+            }
         }
 
         private static void MostrarVehiculos()
@@ -68,10 +89,9 @@ namespace VehiculosApp
                 Console.WriteLine(vehiculo.MostrarDetalles());
                 Separador();
             }
-            Separador();
         }
 
-        private static void InsertarVehiculo()
+        private static void InsertarVehiculo(int id = 0, bool esActualizacion = false)
         {
             VehiculosDAL vehiculoDAL = new VehiculosDAL();
 
@@ -92,12 +112,26 @@ namespace VehiculosApp
                 Console.Write("Digital el N° de Puertas: ");
                 int puertas = int.Parse(Console.ReadLine());
 
-                vehiculoDAL.GuardarVehiculo(marca, modelo, año, tipo, puertas);
+                if (id > 0 && esActualizacion)
+                {
+                    vehiculoDAL.ActualizarVehiculo(id, marca, modelo, año, puertas, tipo);
+                }
+                else
+                {
+                    vehiculoDAL.GuardarVehiculo(marca, modelo, año, tipo, puertas);
+                }                
             }
             else
             {
-                vehiculoDAL.GuardarVehiculo(marca, modelo, año, tipo);
-            }           
+                if (id > 0 && esActualizacion)
+                {
+                    vehiculoDAL.ActualizarVehiculo(id, marca, modelo, año, 0, tipo);
+                }
+                else
+                {
+                    vehiculoDAL.GuardarVehiculo(marca, modelo, año, tipo);
+                }
+            }          
 
         }
 
